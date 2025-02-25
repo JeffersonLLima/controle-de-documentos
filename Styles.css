@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
-    background-image: url(tg-17.png); /* Imagem de fundo */
+    background-image: url("images/tg-17.png"); /* Caminho corrigido */
     background-size: cover;
     background-position: center;
 }
