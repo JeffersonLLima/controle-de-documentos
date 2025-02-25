@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Documentos</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Referência a um arquivo CSS externo (se necessário) -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #resultado {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Calculadora de Divergência Percentual -->
+    <h2>Calculadora de Divergência Percentual</h2>
+    
+    <label for="valorAntigo">MAWB:</label>
+    <input type="number" id="valorAntigo" placeholder="Digite o MAWB"><br>
+
+    <label for="valorNovo">DAE:</label>
+    <input type="number" id="valorNovo" placeholder="Digite o DAE"><br>
+
+    <button onclick="calcularDivergencia()">Calcular</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        function calcularDivergencia() {
+            let valorAntigo = parseFloat(document.getElementById("valorAntigo").value);
+            let valorNovo = parseFloat(document.getElementById("valorNovo").value);
+            
+            if (isNaN(valorAntigo) || isNaN(valorNovo) || valorAntigo === 0) {
+                document.getElementById("resultado").innerText = "Por favor, insira valores válidos!";
+                return;
+            }
+
+            let divergencia = ((valorNovo - valorAntigo) / valorAntigo) * 100;
+            let mensagem = divergencia > 0 
+                ? `Aumento de ${divergencia.toFixed(2)}%`
+                : `Redução de ${Math.abs(divergencia).toFixed(2)}%`;
+
+            document.getElementById("resultado").innerText = `Resultado: ${mensagem}`;
+        }
+    </script>
+
+    <!-- Lista de Recebimento de Documentos -->
+    <h1>Lista de Recebimento de Documentos</h1>
+
+    <form id="document-form">
+        <input type="text" id="document-name" placeholder="Número AWB" required>
+        <input type="date" id="dataRecebimento" placeholder="Data" required>
+        <input type="time" id="horaRecebimento" placeholder="Hora" required>
+        <input type="number" id="pesoDocumento" placeholder="Peso em KG" required>
+        <input type="text" id="origemDocumento" placeholder="Origem" required>
+        <input type="text" id="destinoDocumento" placeholder="Destino" required>
+        <input type="text" id="statusDocumento" placeholder="Status Documento" required>
+        <button type="submit">Adicionar Documento</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>MAWB</th>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Peso</th>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Status</th>
+                <th>Embarcado</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody id="document-list"></tbody>
+    </table>
+
+    <script>
+        // Função para adicionar documentos na lista
+        document.getElementById("document-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const mawb = document.getElementById("document-name").value;
+            const data = document.getElementById("dataRecebimento").value;
+            const hora = document.getElementById("horaRecebimento").value;
+            const peso = document.getElementById("pesoDocumento").value;
+            const origem = document.getElementById("origemDocumento").value;
+            const destino = document.getElementById("destinoDocumento").value;
+            const status = document.getElementById("statusDocumento").value;
+
+            // Criação de uma nova linha na tabela
+            const newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+                <td>${mawb}</td>
+                <td>${data}</td>
+                <td>${hora}</td>
+                <td>${peso} kg</td>
+                <td>${origem}</td>
+                <td>${destino}</td>
+                <td>${status}</td>
+                <td><input type="checkbox" /></td>
+                <td><button onclick="removerDocumento(this)">Remover</button></td>
+            `;
+
+            // Adiciona a linha na tabela
+            document.getElementById("document-list").appendChild(newRow);
+
+            // Limpa os campos após adicionar
+            document.getElementById("document-form").reset();
+        });
+
+        // Função para remover um documento
+        function removerDocumento(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+        }
+    </script>
+
+</body>
+</html>
