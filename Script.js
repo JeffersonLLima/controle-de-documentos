@@ -60,13 +60,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const awb = document.getElementById("document-name").value;
-        const dataRecebimento = document.getElementById("data Recebimento").value;
-        const horaRecebimento = document.getElementById("Hora Recebimento").value;
-        const peso = document.getElementById("Peso Documento").value;
-        const origem = document.getElementById("Origem Documento").value;
-        const destino = document.getElementById("Destino Documento").value;
-        const status = document.getElementById("Status").value;
+        const dataRecebimento = document.getElementById("data-recebimento").value;
+        const horaRecebimento = document.getElementById("hora-recebimento").value;
+        const peso = document.getElementById("peso-documento").value;
+        const origem = document.getElementById("origem-documento").value;
+        const destino = document.getElementById("destino-documento").value;
+        const status = document.getElementById("status").value;
 
+        // Check for empty fields before adding
         if (!awb || !dataRecebimento || !horaRecebimento || !peso || !origem || !destino || !status) {
             alert("Preencha todos os campos!");
             return;
