@@ -6,6 +6,7 @@
     <title>Controle de Documentos</title>
     <link rel="stylesheet" href="styles.css"> <!-- Referência a um arquivo CSS externo (se necessário) -->
     <style>
+        /* Estilos simples para o layout */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -125,7 +126,7 @@
                 <td>${destino}</td>
                 <td>${status}</td>
                 <td><input type="checkbox" /></td>
-                <td><button onclick="removerDocumento(this)">Remover</button></td>
+                <td><button class="remover-btn">Remover</button></td>
             `;
 
             // Adiciona a linha na tabela
@@ -136,10 +137,12 @@
         });
 
         // Função para remover um documento
-        function removerDocumento(button) {
-            const row = button.parentElement.parentElement;
-            row.remove();
-        }
+        document.getElementById("document-list").addEventListener("click", function(event) {
+            if (event.target && event.target.classList.contains("remover-btn")) {
+                const row = event.target.closest("tr");
+                row.remove();
+            }
+        });
     </script>
 
 </body>
